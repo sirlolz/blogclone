@@ -20,8 +20,14 @@ class PostsController < ApplicationController
         render json: @post
     end
 
+    def update
+        @post = Post.all.find(params[:id])
+        @post.update(title: params['post']['title'], body: params['post']['body'])
+        render json: @post
+    end
+
     def destroy
-        post = Post.find(params[:id])
+        post = Post.all.find(params[:id])
         post.destroy
     end
 end

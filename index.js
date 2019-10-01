@@ -49,6 +49,7 @@ function createPostCard(post) {
     let container  = document.createElement("div");
     container.id = post.id;
     container.style.width = "20%";
+    
     let heading = document.createElement("h2");
     heading.innerText = post.title;
     container.appendChild(heading);
@@ -60,6 +61,7 @@ function createPostCard(post) {
     let deleteButton = document.createElement("button")
     deleteButton.id = post.id
     deleteButton.innerText = "delete"
+
     deleteButton.addEventListener("click", ()=>{
         deletePost(post.id)
     })
