@@ -2,13 +2,30 @@
 document.addEventListener("DOMContentLoaded", ()=>{
     const getView = document.getElementById("get");
     getView.addEventListener("click", ()=>{getPost()});
+    const postCreateForm = document.getElementById("postCreate")
 
     const viewPostForm = document.getElementById("createPost")
     viewPostForm.addEventListener("click",()=>{
-        const postCreateForm = document.getElementById("postCreate")
         postCreateForm.style.display = "block"
     })
+    postCreateForm.addEventListener("submit",(event)=>{
+        event.preventDefault()
+        let title = event.target.title.value
+        let body = event.target.body.value
+        addPost(title, body)
+    })
 });
+
+function addPost(title, body){
+    fetch("http://localhost:3000/posts", {
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({title, body})
+    }).then(r => r.json()).then(data =>createPostCard(data))
+}
 
 function getPost(){
     let postToggle = document.getElementById("get");
