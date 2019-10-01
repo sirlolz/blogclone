@@ -50,10 +50,34 @@ function createPostCard(post) {
     container.style.width = "20%";
     let heading = document.createElement("h2");
     heading.innerText = post.title;
+    container.appendChild(heading);
     
     let content = document.createElement("p");
     content.innerText = post.body;
-    container.appendChild(heading);
     container.appendChild(content);
+
+    let deleteButton = document.createElement("button")
+    deleteButton.id = post.id
+    deleteButton.innerText = "delete"
+    deleteButton.addEventListener("click", ()=>{
+        deletePost(post.id)
+    })
+    container.appendChild(deleteButton)
+    let editButton = document.createElement("button")
     document.getElementById("showPosts").appendChild(container);
+}
+
+function deletePost(id) {
+    fetch("http://localhost:3000/posts" + "/"+id, {
+        method: "DELETE",
+        headers:{
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({id})
+    }).then(resp => {
+        if (resp.status === 204){
+            document.getElementById(`${id}`).remove()
+        }
+    })
 }

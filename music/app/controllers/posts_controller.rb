@@ -19,4 +19,10 @@ class PostsController < ApplicationController
         @post.save
         render json: @post
     end
+
+    def destroy
+        puts "############################################################"
+        post = Post.find(params[:id])
+        post.destroy
+    end
 end
