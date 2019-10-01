@@ -100,8 +100,8 @@ function submitPostEdit(e, id){
     }).then(r => {
         if (r.status === 200){
             let card = document.getElementById(`${id}`);
-            card.children[0].innerText = title
-            card.children[1].innerText = body
+            card.children[0].innerText = title;
+            card.children[1].innerText = body;
         }
     })
 
