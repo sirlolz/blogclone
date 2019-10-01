@@ -65,8 +65,46 @@ function createPostCard(post) {
         deletePost(post.id)
     })
     container.appendChild(deleteButton)
-    let editButton = document.createElement("button")
+    let editButton = document.createElement("button");
+    editButton.innerText = "edit";
+    editButton.id = post.id;
+    editButton.addEventListener("click",()=>{
+        createEditForm(post.title, post.body, post.id);
+    })
+    container.appendChild(editButton);
     document.getElementById("showPosts").appendChild(container);
+}
+
+function createEditForm(title, body, id){
+    let form = document.getElementById("postEdit");
+    form.title.value = title;
+    form.body.value = body;
+    form.style.display = "block";
+    form.addEventListener("submit", (e) =>{
+        e.preventDefault();
+        submitPostEdit(e, id);
+        form.remove();
+    })
+}
+
+function submitPostEdit(e, id){
+    let title = e.target.title.value;
+    let body = e.target.body.value;
+    fetch("http://localhost:3000/posts" + "/" + id, {
+        method: "PATCH",
+        headers:{
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({title,body})
+    }).then(r => {
+        if (r.status === 200){
+            let card = document.getElementById(`${id}`);
+            card.children[0].innerText = title
+            card.children[1].innerText = body
+        }
+    })
+
 }
 
 function deletePost(id) {

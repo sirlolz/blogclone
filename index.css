@@ -19,6 +19,10 @@ form {
     margin-left: 5em;
 }
 
+#postEdit {
+    display: none;
+}
+
 #showPosts div{
     background: red;
     width: 18%;
