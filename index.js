@@ -48,9 +48,6 @@ function postIterattion(json){
 function createPostCard(post) {
     let container  = document.createElement("div");
     container.id = post.id;
-    container.style.width = "18%";
-    container.style.margin = "1%";
-    container.style.display = "inline-block";
 
     let heading = document.createElement("h2");
     heading.innerText = post.title;
