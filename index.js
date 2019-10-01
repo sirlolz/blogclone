@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         event.preventDefault()
         let title = event.target.title.value
         let body = event.target.body.value
+        postCreateForm.style.display = "none"
         addPost(title, body)
     })
 });

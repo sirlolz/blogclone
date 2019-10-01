@@ -21,7 +21,6 @@ class PostsController < ApplicationController
     end
 
     def destroy
-        puts "############################################################"
         post = Post.find(params[:id])
         post.destroy
     end
