@@ -1,6 +1,13 @@
+
 document.addEventListener("DOMContentLoaded", ()=>{
-    const getView = document.getElementById("get")
-    getView.addEventListener("click", ()=>{getPost()})
+    const getView = document.getElementById("get");
+    getView.addEventListener("click", ()=>{getPost()});
+
+    const viewPostForm = document.getElementById("createPost")
+    viewPostForm.addEventListener("click",()=>{
+        const postCreateForm = document.getElementById("postCreate")
+        postCreateForm.style.display = "block"
+    })
 });
 
 function getPost(){

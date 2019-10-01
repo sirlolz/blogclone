@@ -1,9 +1,19 @@
 <html>
     <head>
         <script type="text/javascript" src="index.js"></script>
+        <link href="index.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-       <h1> <span id="get">view posts</span> <span id="createPost">hello</span></h1>
+        <ul class="nav">
+            <li id="get">view posts</li>
+            <li id="createPost">create post</li>
+        </ul>
+        <form id="postCreate">
+            <label>title</label>
+            <input type="text" name="title">
+            <label>body</label>
+            <input type="text" name="body">
+        </form>
         <div id="showPosts">
 
         </div>
