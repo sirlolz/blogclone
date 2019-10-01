@@ -45,6 +45,7 @@ function getPost(){
 function postIterattion(json){
     for (post of json ){
         createPostCard(post);
+        commentIteration(post.comments);
     }
 }
 
@@ -85,7 +86,6 @@ function createPostCard(post) {
     })
     container.appendChild(editButton);
     document.getElementById("showPosts").appendChild(container);
-
 }
 
 function createEditForm(title, body, id){

@@ -8,11 +8,10 @@ class CommentsController < ApplicationController
     end
 
     def create
-        @comment = Comment.new
-        puts "##################"
-        puts params
-        puts "##################"
-        @comment.post_id = params["comment"]["id"]
+        @comment = Comment.new        
+        @comment.post_id = params["comment"]["post_id"]
         @comment.body = params["comment"]["body"]
+        @comment.save
+        render json: @comment
     end
 end
