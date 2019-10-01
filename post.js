@@ -6,18 +6,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     const viewPostForm = document.getElementById("createPost")
     viewPostForm.addEventListener("click",()=>{
-        postCreateForm.style.display = "block"
+        if(postCreateForm.style.display === "block"){
+            postCreateForm.style.display = "none"
+        }else{postCreateForm.style.display = "block"}
     })
     postCreateForm.addEventListener("submit",(event)=>{
         event.preventDefault()
         let title = event.target.title.value
         let body = event.target.body.value
+        postCreateForm.reset();
         postCreateForm.style.display = "none"
-        addPost(title, body)
+        postPost(title, body)
     })
 });
 
-function addPost(title, body){
+function postPost(title, body){
     fetch("http://localhost:3000/posts", {
         method: "POST",
         headers:{
@@ -45,10 +48,11 @@ function postIterattion(json){
     }
 }
 
+
+
 function createPostCard(post) {
     let container  = document.createElement("div");
     container.id = post.id;
-
     let heading = document.createElement("h2");
     heading.innerText = post.title;
     container.appendChild(heading);
@@ -56,6 +60,14 @@ function createPostCard(post) {
     let content = document.createElement("p");
     content.innerText = post.body;
     container.appendChild(content);
+
+    let commentButton = document.createElement("button")
+    commentButton.innerText = "comment"
+    commentButton.addEventListener("click",()=>{
+        postSpecify(post.id)
+    })
+
+    container.appendChild(commentButton);
 
     let deleteButton = document.createElement("button")
     deleteButton.id = post.id
@@ -73,6 +85,7 @@ function createPostCard(post) {
     })
     container.appendChild(editButton);
     document.getElementById("showPosts").appendChild(container);
+
 }
 
 function createEditForm(title, body, id){
@@ -82,12 +95,12 @@ function createEditForm(title, body, id){
     form.style.display = "block";
     form.addEventListener("submit", (e) =>{
         e.preventDefault();
-        submitPostEdit(e, id);
-        form.remove();
+        submitPostEdit(e, id, form);
+        
     })
 }
 
-function submitPostEdit(e, id){
+function submitPostEdit(e, id, form){
     let title = e.target.title.value;
     let body = e.target.body.value;
     fetch("http://localhost:3000/posts" + "/" + id, {
@@ -102,6 +115,7 @@ function submitPostEdit(e, id){
             let card = document.getElementById(`${id}`);
             card.children[0].innerText = title;
             card.children[1].innerText = body;
+            form.style.display = "none"
         }
     })
 

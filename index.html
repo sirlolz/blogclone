@@ -1,9 +1,15 @@
 <html>
     <head>
-        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="post.js"></script>
+        <script type="text/javascript" src="comments.js"></script>
         <link href="index.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <form id="comment">
+            <input type="hidden" id="id">
+            <input type="text" name="body">
+            <input type="submit">
+        </form>
         <ul class="nav">
             <li id="get">view posts</li>
             <li id="createPost">create post</li>
