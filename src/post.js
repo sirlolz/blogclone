@@ -1,4 +1,3 @@
- let Globale_CONSOLE = null;
 function postShow(){
     const getView = document.getElementById("get");
     getView.addEventListener("click", ()=>{
@@ -78,7 +77,7 @@ function createPostCard(post) {
     let commentButton = document.createElement("button")
     commentButton.innerText = "comment"
     commentButton.addEventListener("click",()=>{
-        postSpecify(post.id)
+        postSpecify(post.id);
     })
 
     container.appendChild(commentButton);
@@ -101,19 +100,14 @@ function createPostCard(post) {
         form.id.value = post.id;
         form.title.value = post.title;
         form.body.value = post.body;
-        // createEditForm(post.title, post.body, post.id);
     })
     container.appendChild(editButton);
     document.getElementById("showPosts").appendChild(container);
 }
 
-let i = 0
 function submitPostEdit(e, id, form){
-    console.log(e)
-    i++
     let title = e.target.title.value;
     let body = e.target.body.value;
-    console.log(title, body, id)
     fetch("http://localhost:3000/posts" + "/" + id, {
         method: "PATCH",
         headers:{
@@ -129,8 +123,6 @@ function submitPostEdit(e, id, form){
             form.style.display = "none"
         }
     })
-
-    return;
 }
 
 function deletePost(id) {
