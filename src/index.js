@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     let postEditForm = document.getElementById("postEdit");
     postEditForm.addEventListener("submit", (e)=>{
         e.preventDefault();
-        submitPostEdit(e, e.target.id.value, form);
+        submitPostEdit(e, e.target.id.value, postEditForm);
     })
     
     let commentForm = document.getElementById("comment");

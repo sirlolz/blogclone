@@ -20,7 +20,7 @@ function commentDOMCreation(comment){
     post.appendChild(p);
 
     let delButton = document.createElement("button");
-    delButton.className = comment.id;
+    delButton.className = "deleteComment";
     delButton.innerText = "delete";
     delButton.addEventListener("click", () => {
         deleteComment(comment.id, p, delButton);

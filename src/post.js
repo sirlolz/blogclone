@@ -126,6 +126,15 @@ function submitPostEdit(e, id, form){
 }
 
 function deletePost(id) {
+    let post = document.getElementById(`${id}`);
+    // The Work Of A GENIUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // let buttonArray = post.querySelectorAll(".deleteComment");
+    // for(button in buttonArray){
+    //     if (button.match(/[0-9]/)){
+    //         buttonArray[button].click()
+    //     }
+    // }
+    
     fetch("http://localhost:3000/posts" + "/"+id, {
         method: "DELETE",
         headers:{
@@ -135,7 +144,7 @@ function deletePost(id) {
         body: JSON.stringify({id})
     }).then(resp => {
         if (resp.status === 204){
-            document.getElementById(`${id}`).remove()
+            post.remove();
         }
     })
 }

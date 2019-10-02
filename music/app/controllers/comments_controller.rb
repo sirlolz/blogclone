@@ -17,6 +17,6 @@ class CommentsController < ApplicationController
 
     def destroy
         Comment.find(params[:comment][:id]).destroy
-
+        puts '###################################################'
     end
 end
