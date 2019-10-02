@@ -1,21 +1,23 @@
+ let Globale_CONSOLE = null;
 function postShow(){
     const getView = document.getElementById("get");
     getView.addEventListener("click", ()=>{
-
         getPost();
     });
 }
 
 function createPostForm(){
-const postCreateForm = document.getElementById("postCreate")
-const viewPostForm = document.getElementById("createPost")
-viewPostForm.addEventListener("click",()=>{
-    if(postCreateForm.style.display === "block"){
-        postCreateForm.style.display = "none"
-    }else{postCreateForm.style.display = "block"}
-})
+    const postCreateForm = document.getElementById("postCreate")
+    const viewPostForm = document.getElementById("createPost")
+    viewPostForm.addEventListener("click",()=>{
+        if(postCreateForm.style.display === "block"){
+            postCreateForm.style.display = "none"
+        }else{
+            postCreateForm.style.display = "block"
+        }
+    })
 
-postCreateForm.addEventListener("submit",(event)=>{
+    postCreateForm.addEventListener("submit",(event)=>{
     event.preventDefault()
     let title = event.target.title.value
     let body = event.target.body.value
@@ -27,7 +29,11 @@ postCreateForm.addEventListener("submit",(event)=>{
 function getPost(){
     let postToggle = document.getElementById("get");
     if (postToggle.innerText == "view posts"){
-        fetch("http://localhost:3000/posts").then(r => r.json()).then(json => {postIterattion(json)});
+        fetch("http://localhost:3000/posts")
+            .then(r => r.json())
+            .then(json => {
+                postIterattion(json)
+        });
         postToggle.innerText = "hide posts";
     }else{
         postToggle.innerText = "view posts";
@@ -43,7 +49,9 @@ function postPost(title, body){
             Accept: "application/json"
         },
         body: JSON.stringify({title, body})
-    }).then(r => r.json()).then(data =>createPostCard(data))
+    })
+    .then(r => r.json())
+    .then(data =>createPostCard(data));
 }
 
 
@@ -86,29 +94,26 @@ function createPostCard(post) {
 
     let editButton = document.createElement("button");
     editButton.innerText = "edit";
-    editButton.id = post.id;
+    editButton.id = "edit" + post.id;
+    let form = document.getElementById("postEdit");
     editButton.addEventListener("click",()=>{
-        createEditForm(post.title, post.body, post.id);
+        form.style.display ="block"
+        form.id.value = post.id;
+        form.title.value = post.title;
+        form.body.value = post.body;
+        // createEditForm(post.title, post.body, post.id);
     })
     container.appendChild(editButton);
     document.getElementById("showPosts").appendChild(container);
 }
 
-function createEditForm(title, body, id){
-    let form = document.getElementById("postEdit");
-    form.title.value = title;
-    form.body.value = body;
-    form.style.display = "block";
-    form.addEventListener("submit", (e) =>{
-        e.preventDefault();
-        submitPostEdit(e, id, form);
-        
-    })
-}
-
+let i = 0
 function submitPostEdit(e, id, form){
+    console.log(e)
+    i++
     let title = e.target.title.value;
     let body = e.target.body.value;
+    console.log(title, body, id)
     fetch("http://localhost:3000/posts" + "/" + id, {
         method: "PATCH",
         headers:{
@@ -125,6 +130,7 @@ function submitPostEdit(e, id, form){
         }
     })
 
+    return;
 }
 
 function deletePost(id) {

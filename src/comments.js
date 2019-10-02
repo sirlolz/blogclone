@@ -36,16 +36,16 @@ function commentDOMCreation(comment){
     p.innerText = "comment: " + comment.body
     post.appendChild(p);
 
-    let del = document.createElement("button");
-    del.className = comment.id;
-    del.innerText = "delete";
-    del.addEventListener("click", () => {
-        deleteComment(comment.id);
+    let delButton = document.createElement("button");
+    delButton.className = comment.id;
+    delButton.innerText = "delete";
+    delButton.addEventListener("click", () => {
+        deleteComment(comment.id, p, delButton);
     });
-    post.appendChild(del);
+    post.appendChild(delButton);
 }
 
-function deleteComment(id) {
+function deleteComment(id, pNode, buttonNode) {
     fetch("http://localhost:3000/comments" + "/"+id, {
         method: "DELETE",
         headers:{
@@ -57,8 +57,8 @@ function deleteComment(id) {
         resp => {
             if (resp.status === 204){
                 // console.log(document.querySelector(`.${id}`));
-                // document.querySelector(`.${id}`).remove()
-                // document.querySelector(`.${id}`).remove()
+                pNode.remove()
+                buttonNode.remove()
             }
         }
     );

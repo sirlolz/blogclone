@@ -1,8 +1,8 @@
 <html>
     <head>
-        <script type="text/javascript" src="index.js"></script>
-        <script type="text/javascript" src="post.js"></script>
-        <script type="text/javascript" src="comments.js"></script>
+        <script type="text/javascript" src="src/index.js"></script>
+        <script type="text/javascript" src="src/post.js"></script>
+        <script type="text/javascript" src="src/comments.js"></script>
         <link href="index.css" rel="stylesheet" type="text/css">
     </head>
     <body>
@@ -25,11 +25,13 @@
         <form id="postEdit">
             <label>title</label>
             <input type="text" name="title">
+            <input type="hidden" name="id">
             <label>body</label>
             <input type="text" name="body">
-            <input type="submit">
+            <input id="editSubmit" type="submit">
         </form>
         <div id="showPosts">
+            
         </div>
     </body>
 </html>
