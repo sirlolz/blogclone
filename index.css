@@ -24,6 +24,14 @@ form {
     margin-left: 5em;
 }
 
+.comments{
+    background: red;
+    margin: 0px auto;
+    float: left;
+    display: table-cell;
+    vertical-align: center;
+    margin-right: 25px;
+}
 
 #postEdit {
     display: none;
@@ -43,4 +51,5 @@ form {
     display: table-cell;
     vertical-align: center;
     margin-right: 25px;
+    margin-top: 1%;
 }

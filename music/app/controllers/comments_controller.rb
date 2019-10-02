@@ -14,4 +14,9 @@ class CommentsController < ApplicationController
         @comment.save
         render json: @comment
     end
+
+    def destroy
+        Comment.find(params[:comment][:id]).destroy
+
+    end
 end

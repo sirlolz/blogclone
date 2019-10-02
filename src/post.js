@@ -1,24 +1,39 @@
-
-document.addEventListener("DOMContentLoaded", ()=>{
+function postShow(){
     const getView = document.getElementById("get");
-    getView.addEventListener("click", ()=>{getPost()});
-    const postCreateForm = document.getElementById("postCreate")
+    getView.addEventListener("click", ()=>{
 
-    const viewPostForm = document.getElementById("createPost")
-    viewPostForm.addEventListener("click",()=>{
-        if(postCreateForm.style.display === "block"){
-            postCreateForm.style.display = "none"
-        }else{postCreateForm.style.display = "block"}
-    })
-    postCreateForm.addEventListener("submit",(event)=>{
-        event.preventDefault()
-        let title = event.target.title.value
-        let body = event.target.body.value
-        postCreateForm.reset();
+        getPost();
+    });
+}
+
+function createPostForm(){
+const postCreateForm = document.getElementById("postCreate")
+const viewPostForm = document.getElementById("createPost")
+viewPostForm.addEventListener("click",()=>{
+    if(postCreateForm.style.display === "block"){
         postCreateForm.style.display = "none"
-        postPost(title, body)
-    })
-});
+    }else{postCreateForm.style.display = "block"}
+})
+
+postCreateForm.addEventListener("submit",(event)=>{
+    event.preventDefault()
+    let title = event.target.title.value
+    let body = event.target.body.value
+    postCreateForm.reset();
+    postCreateForm.style.display = "none"
+    postPost(title, body)
+})
+}
+function getPost(){
+    let postToggle = document.getElementById("get");
+    if (postToggle.innerText == "view posts"){
+        fetch("http://localhost:3000/posts").then(r => r.json()).then(json => {postIterattion(json)});
+        postToggle.innerText = "hide posts";
+    }else{
+        postToggle.innerText = "view posts";
+        document.getElementById("showPosts").innerText = ""
+    }
+}
 
 function postPost(title, body){
     fetch("http://localhost:3000/posts", {
@@ -31,29 +46,19 @@ function postPost(title, body){
     }).then(r => r.json()).then(data =>createPostCard(data))
 }
 
-function getPost(){
-    let postToggle = document.getElementById("get");
-    if (postToggle.innerText == "view posts"){
-        fetch("http://localhost:3000/posts").then(r => r.json()).then(json => {postIterattion(json)});
-        postToggle.innerText = "hide posts";
-    }else{
-        postToggle.innerText = "view posts";
-        document.getElementById("showPosts").innerText = ""
-    }
-}
 
 function postIterattion(json){
+    document.getElementById("showPosts").innerText = ""
     for (post of json ){
         createPostCard(post);
         commentIteration(post.comments);
     }
 }
 
-
-
 function createPostCard(post) {
     let container  = document.createElement("div");
     container.id = post.id;
+
     let heading = document.createElement("h2");
     heading.innerText = post.title;
     container.appendChild(heading);
@@ -78,6 +83,7 @@ function createPostCard(post) {
         deletePost(post.id)
     })
     container.appendChild(deleteButton)
+
     let editButton = document.createElement("button");
     editButton.innerText = "edit";
     editButton.id = post.id;
