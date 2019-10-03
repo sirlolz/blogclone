@@ -134,7 +134,7 @@ function deletePost(id) {
     //         buttonArray[button].click()
     //     }
     // }
-    
+    // GENIUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     fetch("http://localhost:3000/posts" + "/"+id, {
         method: "DELETE",
         headers:{
